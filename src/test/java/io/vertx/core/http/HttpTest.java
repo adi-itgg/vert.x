@@ -35,11 +35,7 @@ import io.vertx.core.http.impl.ServerCookie;
 import io.vertx.core.http.impl.headers.HeadersMultiMap;
 import io.vertx.core.impl.Utils;
 import io.vertx.core.impl.VertxInternal;
-import io.vertx.core.net.NetClient;
-import io.vertx.core.net.NetClientOptions;
-import io.vertx.core.net.NetServerOptions;
-import io.vertx.core.net.NetSocket;
-import io.vertx.core.net.SocketAddress;
+import io.vertx.core.net.*;
 import io.vertx.core.net.impl.HAProxyMessageCompletionHandler;
 import io.vertx.core.streams.Pump;
 import io.vertx.core.streams.ReadStream;
@@ -4375,6 +4371,7 @@ public abstract class HttpTest extends HttpTestBase {
       public HttpClientRequest setMaxRedirects(int maxRedirects) { throw new UnsupportedOperationException(); }
       public HttpClientRequest setChunked(boolean chunked) { throw new UnsupportedOperationException(); }
       public boolean isChunked() { return false; }
+      public HttpClientRequest authority(HostAndPort authority) { throw new UnsupportedOperationException(); }
       public HttpMethod getMethod() { return method; }
       public String absoluteURI() { return baseURI; }
       public HttpVersion version() { return HttpVersion.HTTP_1_1; }

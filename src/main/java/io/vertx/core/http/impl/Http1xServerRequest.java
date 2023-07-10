@@ -32,6 +32,7 @@ import io.vertx.core.impl.VertxInternal;
 import io.vertx.core.impl.future.PromiseInternal;
 import io.vertx.core.impl.logging.Logger;
 import io.vertx.core.impl.logging.LoggerFactory;
+import io.vertx.core.net.HostAndPort;
 import io.vertx.core.net.NetSocket;
 import io.vertx.core.net.SocketAddress;
 import io.vertx.core.spi.metrics.HttpServerMetrics;
@@ -71,6 +72,7 @@ public class Http1xServerRequest extends HttpServerRequestInternal implements io
   private HttpRequest request;
   private io.vertx.core.http.HttpVersion version;
   private io.vertx.core.http.HttpMethod method;
+  private HostAndPort authority;
   private String uri;
   private String path;
   private String query;
@@ -249,6 +251,15 @@ public class Http1xServerRequest extends HttpServerRequestInternal implements io
       query = HttpUtils.parseQuery(uri());
     }
     return query;
+  }
+
+  @Override
+  public synchronized HostAndPort authority() {
+    if (authority == null) {
+      String host = getHeader(HttpHeaderNames.HOST);
+      authority = HostAndPort.parse(host);
+    }
+    return authority;
   }
 
   @Override
